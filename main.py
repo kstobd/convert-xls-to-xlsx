@@ -12,7 +12,7 @@ import openpyxl
 class PreparingSchudlel:
 
     @staticmethod
-    def cvt_xls_to_xlsx(*args, **kw):
+    def Cvt_xls_to_xlsx(*args, **kw):
         book_xls = xlrd.open_workbook(*args, formatting_info=True, ragged_rows=True, **kw)      #open xls book
         book_xlsx = openpyxl.workbook.Workbook()    #create xlsx book
 
@@ -42,13 +42,12 @@ class PreparingSchudlel:
                         except BaseException:
                             pass
 
-        return book_xlsx
+        book_xlsx.save(filename = fname[:-3] + 'xlsx')
 
 
     @staticmethod
-    def Unmerg(xlsxFile):
-        # wb = load_workbook(filename = xlsxFile)
-        wb = xlsxFile
+    def Unmerged(xlsxFile):
+        wb = load_workbook(filename = xlsxFile)
 
         for st_name in wb.sheetnames:
             st = wb[st_name]
@@ -62,10 +61,13 @@ class PreparingSchudlel:
                     for cell in row:
                         cell.value = top_left_cell_value
 
-        wb.save('DoneSchedule.xlsx')
+        wb.save(fname[:-4] + '_unmegred.xlsx')
 
 
 
-    # fname = "Расписание занятий ф-т ИТ -  02.03.02, 09.03.01, 09.03.02 - 1, 2 курс - семестр 1,3 -2021-22 уч г (0916).xls"
-    # # cvt_xls_to_xlsx(fname).save(filename="outF.xlsx")
-    # Unmerg(cvt_xls_to_xlsx(fname))
+
+# test command
+
+# fname = "Расписание занятий ф-т ИТ -  02.03.02, 09.03.01, 09.03.02 - 1, 2 курс - семестр 1,3 -2021-22 уч г (0916).xls"
+# PreparingSchudlel().Cvt_xls_to_xlsx(fname)
+# PreparingSchudlel().Unmerged("Расписание занятий ф-т ИТ -  02.03.02, 09.03.01, 09.03.02 - 1, 2 курс - семестр 1,3 -2021-22 уч г (0916).xlsx")
